@@ -1,18 +1,4 @@
-# Modelos de IA (muy pesados)
-models/*.gguf
-models/*.bin
-models/*.safetensors
-models/*.pt
-models/*.pth
-models/*.ckpt
-
-# Entorno virtual
-venv/
-env/
-.venv/
-.env/
-
-# Cache de Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -33,45 +19,53 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# Base de datos vectorial
-data/chroma/
-*.db
-*.sqlite
-*.sqlite3
-
-# Variables de entorno
-.env
-config.env
-*.env
-
-# Logs
-*.log
-logs/
-
-# Archivos temporales
-*.tmp
-*.temp
-.DS_Store
-Thumbs.db
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Jupyter Notebook
+# Environment variables
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite3
+data/chroma/
+
+# Models (large files)
+models/*.gguf
+models/*.bin
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Jupyter
 .ipynb_checkpoints/
 
-# Pytest
-.pytest_cache/
+# Coverage
 .coverage
 htmlcov/
 
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
+# Testing
+.pytest_cache/
+.tox/

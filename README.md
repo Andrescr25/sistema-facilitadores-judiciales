@@ -1,120 +1,196 @@
-# Sistema de Facilitadores Judiciales
+# 🤖 Sistema de Facilitadores Judiciales - Costa Rica
 
-Sistema de chatbot especializado en facilitación judicial con interfaz web y API REST.
+Sistema inteligente de asistencia legal con IA híbrida (MockLLM + Groq API) para facilitadores judiciales.
 
-## Estructura del Proyecto
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-```
-ChatBot/
-├── apps/                    # Aplicaciones principales
-│   ├── api_simple.py       # API REST simple
-│   ├── app_streamlit*.py   # Interfaces web Streamlit
-│   ├── chat_console*.py    # Interfaces de consola
-│   └── start_*.py          # Scripts de inicio
-├── config/                 # Configuración
-│   ├── config.env         # Variables de entorno
-│   └── security.py        # Configuración de seguridad
-├── data/                   # Datos del sistema
-│   ├── docs/              # Documentos fuente
-│   └── chroma/            # Base de datos vectorial
-├── docs/                   # Documentación
-│   └── README_*.md        # Documentación detallada
-├── models/                 # Modelos de IA
-│   └── *.gguf             # Modelos GGUF
-├── scripts/                # Scripts de utilidad
-│   ├── ingest.py          # Ingesta de documentos
-│   └── setup.sh           # Script de configuración
-├── tests/                  # Pruebas
-│   ├── test_api.py        # Pruebas de API
-│   ├── test_auth.py       # Pruebas de autenticación
-│   └── test_gpt4all.py    # Pruebas de modelo
-├── app/                    # Módulos de aplicación
-│   ├── api.py             # Lógica de API
-│   └── security.py        # Seguridad de aplicación
-├── requirements.txt        # Dependencias Python
-└── venv/                   # Entorno virtual
-```
+## 🚀 Inicio Rápido
 
-## Inicio Rápido
-
-### 1. Configuración Inicial
 ```bash
 # Instalar dependencias
 pip install -r requirements.txt
 
-# Configurar variables de entorno
-cp config/config.env.example config/config.env
+# Iniciar sistema completo (API + Web)
+python inicio.py
 ```
 
-### 2. Ingesta de Documentos
+El sistema estará disponible en:
+- **Interfaz Web**: http://localhost:8501
+- **API**: http://localhost:8000
+- **Documentación API**: http://localhost:8000/docs
+
+## 📋 Requisitos
+
+- Python 3.9 o superior
+- 4GB RAM mínimo
+- Conexión a Internet (para Groq API)
+
+## ⚙️ Configuración
+
+### 1. API Key de Groq (Recomendado - GRATIS)
+
+1. Crea una cuenta en [console.groq.com](https://console.groq.com)
+2. Genera una API Key
+3. Edita `config/config.env`:
+   ```env
+   GROQ_API_KEY=tu_api_key_aqui
+   USE_GROQ_API=true
+   ```
+
+## 🧠 Sistema Híbrido
+
+El sistema combina **dos tipos de IA**:
+
+| Componente | Velocidad | Uso | Coste |
+|------------|-----------|-----|-------|
+| **MockLLM** | < 1s | Preguntas comunes | Gratis |
+| **Groq API** | 1-3s | Preguntas variadas | Gratis (14,400 req/día) |
+
+## 📁 Estructura del Proyecto
+
+```
+sistema-facilitadores-judiciales/
+├── src/                    # Código fuente principal
+│   ├── api.py             # Backend (FastAPI + IA)
+│   ├── app.py             # Frontend (Streamlit)
+│   └── __init__.py
+├── bin/                    # Scripts de ejecución
+│   ├── run.py             # Iniciar sistema completo
+│   ├── start.py           # Solo API
+│   ├── console.py         # Interfaz consola
+│   └── status.py          # Verificar estado
+├── tests/                  # Tests
+│   └── test.py
+├── config/                 # Configuración
+│   ├── config.env         # Variables de entorno
+│   └── security.py        # Autenticación
+├── data/                   # Datos del sistema
+│   ├── docs/              # Documentos legales (PDFs)
+│   └── chroma/            # Base de datos vectorial
+├── scripts/                # Scripts auxiliares
+│   └── ingest.py          # Procesar documentos
+├── docs/                   # Documentación
+│   ├── README_SISTEMA.md
+│   └── PROYECTO_ORGANIZADO.md
+├── models/                 # Modelos LLM locales (opcional)
+├── inicio.py              # 🚀 Script principal
+├── requirements.txt       # Dependencias
+└── README.md              # Este archivo
+```
+
+## 💻 Uso
+
+### Interfaz Web (Recomendado)
 ```bash
-# Procesar documentos en data/docs/
+python inicio.py
+# Abre http://localhost:8501
+```
+
+### API REST
+```bash
+python bin/start.py
+
+# Probar con curl
+curl -X POST "http://localhost:8000/ask" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "¿Cómo solicito pensión alimentaria?"}'
+```
+
+### Consola
+```bash
+python bin/console.py
+```
+
+### Verificar Estado
+```bash
+python bin/status.py
+```
+
+## 🧪 Tests
+
+```bash
+python tests/test.py
+```
+
+## 📚 Agregar Documentos Nuevos
+
+```bash
+# 1. Coloca tus PDFs en data/docs/
+# 2. Ejecuta el script de ingestión:
 python scripts/ingest.py
 ```
 
-### 3. Iniciar Sistema
+## 🎯 Características
+
+✅ **Respuestas instantáneas** para preguntas comunes  
+✅ **IA avanzada (Groq)** para preguntas complejas  
+✅ **Búsqueda semántica** en documentos legales  
+✅ **Historial conversacional** con contexto  
+✅ **Cache inteligente** para optimizar rendimiento  
+✅ **Interfaz minimalista** tipo ChatGPT  
+✅ **100% GRATIS** sin límites de uso razonables
+
+## 🛠️ Tecnologías
+
+- **Backend**: FastAPI, Uvicorn
+- **Frontend**: Streamlit
+- **IA**: Groq API (Llama 3.1), MockLLM
+- **Base de Datos**: ChromaDB (vectorial)
+- **Embeddings**: sentence-transformers
+- **Docs**: PyPDF, python-docx
+
+## 📖 Documentación Adicional
+
+- [Guía Completa del Sistema](docs/README_SISTEMA.md)
+- [Organización del Proyecto](docs/PROYECTO_ORGANIZADO.md)
+- [API Documentation](http://localhost:8000/docs) (cuando esté corriendo)
+
+## 🐛 Troubleshooting
+
+### Error: GROQ_API_KEY no configurada
 ```bash
-# Opción 1: Sistema completo (API + Web)
-python apps/start_clean.py
-
-# Opción 2: Solo API
-python apps/api_simple.py
-
-# Opción 3: Solo interfaz web
-streamlit run apps/app_streamlit_clean.py
+# Edita config/config.env y agrega tu API Key
+nano config/config.env
 ```
 
-## Acceso al Sistema
-
-- **Interfaz Web**: http://localhost:8501
-- **API Backend**: http://localhost:8000
-- **Documentación API**: http://localhost:8000/docs
-
-## Credenciales por Defecto
-
-- **Admin**: admin / admin
-- **Facilitador**: facilitador / facilitador  
-- **Usuario**: user / user
-
-## Documentación Detallada
-
-Ver carpeta `docs/` para documentación específica:
-- `README_STEP1.md` - Configuración inicial
-- `README_STEP2.md` - Ingesta de documentos
-- `README_STEP3.md` - Configuración de API
-- `README_STEP4.md` - Interfaz web
-- `README_STEP5.md` - Autenticación
-- `README_STEP6.md` - Despliegue
-- `README_CLEAN.md` - Versión limpia
-- `README_FINAL.md` - Documentación final
-
-## Pruebas
-
+### Error: Módulo no encontrado
 ```bash
-# Ejecutar todas las pruebas
-python -m pytest tests/
-
-# Prueba específica de API
-python tests/test_api.py
+pip install -r requirements.txt
 ```
 
-## Desarrollo
+### Sistema lento
+- Verifica que `USE_GROQ_API=true` en `config/config.env`
+- MockLLM debe responder en < 1s
+- Groq debe responder en < 3s
 
-### Estructura de Carpetas
+## 🤝 Contribuir
 
-- **apps/**: Aplicaciones ejecutables (APIs, interfaces)
-- **config/**: Archivos de configuración
-- **data/**: Datos del sistema (documentos, vectores)
-- **docs/**: Documentación del proyecto
-- **models/**: Modelos de IA (GGUF)
-- **scripts/**: Scripts de utilidad y automatización
-- **tests/**: Pruebas unitarias e integración
-- **app/**: Módulos de aplicación (lógica de negocio)
+Las contribuciones son bienvenidas. Por favor:
 
-### Convenciones
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -am 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
 
-- Usar rutas absolutas para archivos de configuración
-- Mantener separación entre lógica de negocio y presentación
-- Documentar cambios en `docs/`
-- Ejecutar pruebas antes de commits
+## 📄 Licencia
 
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 👥 Autores
+
+Sistema de Facilitadores Judiciales de Costa Rica
+
+## 📞 Soporte
+
+Para problemas o preguntas:
+- Revisa la [documentación](docs/)
+- Abre un [issue](https://github.com/tu-usuario/sistema-facilitadores-judiciales/issues)
+- Ejecuta `python bin/status.py` para diagnóstico
+
+---
+
+⭐ Si este proyecto te ayudó, dale una estrella en GitHub!
