@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Chat FJ - Servicio Nacional de Facilitadoras y Facilitadores Judiciales
-Interfaz web profesional con Streamlit
+Interfaz web minimalista con Streamlit
 """
 
 import streamlit as st
@@ -17,26 +17,24 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS Profesional y Moderno
+# CSS Minimalista y Profesional
 st.markdown("""
 <style>
     /* Importar fuente profesional */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    /* Variables de color corporativas */
+    /* Variables de color */
     :root {
-        --primary-color: #1e40af;
-        --secondary-color: #3b82f6;
-        --accent-color: #60a5fa;
-        --success-color: #10b981;
-        --warning-color: #f59e0b;
+        --primary: #1e40af;
+        --primary-light: #3b82f6;
+        --border: #e5e7eb;
         --text-dark: #1f2937;
         --text-light: #6b7280;
-        --bg-light: #f9fafb;
-        --border-color: #e5e7eb;
+        --bg-user: #1e40af;
+        --bg-assistant: #f3f4f6;
     }
     
-    /* Reset y base */
+    /* Reset */
     * {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
@@ -46,85 +44,39 @@ st.markdown("""
     footer {visibility: hidden;}
     .stDeployButton {display: none;}
     
-    /* Header corporativo */
+    /* Header minimalista */
     .main-header {
         background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        padding: 2rem 2.5rem;
-        border-radius: 0;
+        padding: 2rem;
         margin: -6rem -4rem 2rem -4rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
     
-    .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .logo-section {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        margin-bottom: 0.75rem;
-    }
-    
-    .logo {
-        font-size: 3rem;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
-    
-    .brand-text h1 {
+    .main-header h1 {
         color: white;
-        font-size: 2rem;
+        font-size: 1.75rem;
         font-weight: 700;
         margin: 0;
-        line-height: 1.2;
     }
     
-    .brand-text p {
+    .main-header p {
         color: rgba(255, 255, 255, 0.9);
-        font-size: 0.95rem;
-        margin: 0.25rem 0 0 0;
+        font-size: 0.9rem;
+        margin: 0.5rem 0 0 0;
         font-weight: 400;
-    }
-    
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 0.5rem 1rem;
-        border-radius: 2rem;
-        color: white;
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-top: 0.75rem;
-    }
-    
-    .status-dot {
-        width: 8px;
-        height: 8px;
-        background: #10b981;
-        border-radius: 50%;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
     }
     
     /* Contenedor principal */
     .main .block-container {
-        max-width: 1200px;
-        padding: 2rem 3rem 3rem 3rem;
+        max-width: 900px;
+        padding: 2rem 2rem 3rem 2rem;
     }
     
     /* Chat container */
     .chat-container {
         background: white;
-        border-radius: 1rem;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        border: 1px solid var(--border);
         padding: 1.5rem;
         margin: 1.5rem 0;
         min-height: 500px;
@@ -135,111 +87,36 @@ st.markdown("""
     /* Mensajes */
     .message {
         margin: 1rem 0;
-        padding: 1rem 1.25rem;
+        padding: 0.875rem 1rem;
         border-radius: 1rem;
-        max-width: 75%;
-        animation: slideIn 0.3s ease-out;
+        max-width: 80%;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        animation: fadeIn 0.3s ease-out;
     }
     
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
     .user-message {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        background: var(--bg-user);
         color: white;
         margin-left: auto;
         border-bottom-right-radius: 0.25rem;
     }
     
     .assistant-message {
-        background: #f9fafb;
-        color: #1f2937;
-        border: 1px solid #e5e7eb;
+        background: var(--bg-assistant);
+        color: var(--text-dark);
         margin-right: auto;
         border-bottom-left-radius: 0.25rem;
     }
     
-    .message-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        opacity: 0.9;
-    }
-    
-    .message-content {
-        line-height: 1.6;
-        font-size: 0.95rem;
-    }
-    
     /* Input section */
-    .input-section {
-        background: white;
-        border-radius: 1rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        padding: 1.5rem;
-        margin: 2rem 0;
-    }
-    
-    /* Botones de ejemplo */
-    .example-questions {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        margin: 1.5rem 0;
-    }
-    
-    .example-btn {
-        background: white;
-        border: 2px solid #e5e7eb;
-        padding: 0.625rem 1rem;
-        border-radius: 2rem;
-        font-size: 0.875rem;
-        color: #4b5563;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-weight: 500;
-    }
-    
-    .example-btn:hover {
-        background: #f9fafb;
-        border-color: #3b82f6;
-        color: #1e40af;
-        transform: translateY(-1px);
-    }
-    
-    /* Botón limpiar */
-    .stButton button {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        color: white;
-        border: none;
-        padding: 0.625rem 1.5rem;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        font-size: 0.875rem;
-        cursor: pointer;
-        transition: all 0.2s;
-        width: 100%;
-    }
-    
-    .stButton button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
-    }
-    
-    /* Input de texto */
     .stTextInput input {
-        border: 2px solid #e5e7eb;
+        border: 2px solid var(--border);
         border-radius: 0.75rem;
         padding: 0.875rem 1rem;
         font-size: 0.95rem;
@@ -247,69 +124,48 @@ st.markdown("""
     }
     
     .stTextInput input:focus {
-        border-color: #3b82f6;
+        border-color: var(--primary-light);
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        outline: none;
     }
     
-    /* Footer corporativo */
-    .footer {
-        text-align: center;
-        padding: 2rem;
-        margin-top: 3rem;
-        color: #6b7280;
-        font-size: 0.875rem;
-        border-top: 1px solid #e5e7eb;
-    }
-    
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 1rem;
-    }
-    
-    .footer-link {
-        color: #3b82f6;
-        text-decoration: none;
+    /* Botones */
+    .stButton button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.625rem 1.25rem;
+        border-radius: 0.5rem;
         font-weight: 500;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        width: 100%;
     }
     
-    .footer-link:hover {
-        color: #1e40af;
+    .stButton button:hover {
+        background: var(--primary-light);
+        transform: translateY(-1px);
     }
     
-    /* Typing animation */
-    .typing-indicator {
-        display: flex;
-        gap: 0.25rem;
-        padding: 1rem;
+    /* Disclaimer */
+    .disclaimer {
+        background: #fef3c7;
+        border: 1px solid #fcd34d;
+        border-radius: 0.5rem;
+        padding: 0.875rem 1rem;
+        margin: 1.5rem 0;
+        font-size: 0.875rem;
+        color: #92400e;
+        text-align: center;
     }
     
-    .typing-dot {
-        width: 8px;
-        height: 8px;
-        background: #9ca3af;
-        border-radius: 50%;
-        animation: typing 1.4s infinite;
+    .disclaimer strong {
+        color: #78350f;
     }
     
-    .typing-dot:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-    
-    .typing-dot:nth-child(3) {
-        animation-delay: 0.4s;
-    }
-    
-    @keyframes typing {
-        0%, 60%, 100% {
-            transform: translateY(0);
-            opacity: 0.7;
-        }
-        30% {
-            transform: translateY(-10px);
-            opacity: 1;
-        }
+    /* Loading */
+    .stSpinner > div {
+        border-top-color: var(--primary) !important;
     }
     
     /* Scroll suave */
@@ -324,37 +180,34 @@ st.markdown("""
             margin: -4rem -1rem 1.5rem -1rem;
         }
         
-        .brand-text h1 {
+        .main-header h1 {
             font-size: 1.5rem;
         }
         
         .message {
-            max-width: 90%;
+            max-width: 85%;
         }
         
-        .example-questions {
-            flex-direction: column;
+        .main .block-container {
+            padding: 1.5rem 1rem;
         }
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Header corporativo
+# Header minimalista
 st.markdown("""
 <div class="main-header">
-    <div class="header-content">
-        <div class="logo-section">
-            <div class="logo">⚖️</div>
-            <div class="brand-text">
-                <h1>Chat FJ</h1>
-                <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
-            </div>
-        </div>
-        <div class="status-badge">
-            <div class="status-dot"></div>
-            <span>Sistema en línea | Poder Judicial Costa Rica</span>
-        </div>
-    </div>
+    <h1>⚖️ Chat FJ</h1>
+    <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Disclaimer como ChatGPT
+st.markdown("""
+<div class="disclaimer">
+    <strong>⚠️ Importante:</strong> Este chat es para orientación general. La información puede contener errores. 
+    Verifica siempre con fuentes oficiales o profesionales del derecho.
 </div>
 """, unsafe_allow_html=True)
 
@@ -375,31 +228,6 @@ def ask_question(question: str, history: List[Dict]) -> Dict:
     except Exception as e:
         return {"answer": f"Error de conexión: {str(e)}", "sources": []}
 
-def typing_effect(text: str, container):
-    """Efecto de escritura tipo ChatGPT."""
-    words = text.split()
-    displayed_text = ""
-    
-    for i, word in enumerate(words):
-        displayed_text += word + " "
-        container.markdown(
-            f'<div class="message assistant-message">'
-            f'<div class="message-header">⚖️ Chat FJ</div>'
-            f'<div class="message-content">{displayed_text}▌</div>'
-            f'</div>',
-            unsafe_allow_html=True
-        )
-        time.sleep(0.03)
-    
-    # Mostrar texto final sin cursor
-    container.markdown(
-        f'<div class="message assistant-message">'
-        f'<div class="message-header">⚖️ Chat FJ</div>'
-        f'<div class="message-content">{text}</div>'
-        f'</div>',
-        unsafe_allow_html=True
-    )
-
 def main():
     """Aplicación principal."""
     
@@ -409,31 +237,9 @@ def main():
         # Mensaje de bienvenida
         welcome_msg = {
             "role": "assistant",
-            "content": "¡Hola! 👋 Soy **Chat FJ**, tu asistente virtual del Servicio Nacional de Facilitadoras y Facilitadores Judiciales de Costa Rica.\n\nEstoy aquí para ayudarte con información sobre procesos legales, conciliación, pensión alimentaria y más. ¿En qué puedo asistirte hoy?"
+            "content": "Hola, soy Chat FJ. ¿En qué puedo ayudarte hoy?"
         }
         st.session_state.messages.append(welcome_msg)
-    
-    # Preguntas de ejemplo
-    st.markdown("""
-    <div style="text-align: center; margin: 2rem 0 1rem 0;">
-        <h3 style="color: #1f2937; font-weight: 600; margin-bottom: 0.5rem;">💬 Pregunta al Chat FJ</h3>
-        <p style="color: #6b7280; font-size: 0.95rem;">Selecciona una pregunta frecuente o escribe la tuya:</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Botones de ejemplo en columnas
-    col1, col2, col3 = st.columns(3)
-    
-    example_questions = [
-        "¿Cómo solicito pensión alimentaria?",
-        "¿Cuánto dura una conciliación?",
-        "¿Cómo ser facilitadora o facilitador?"
-    ]
-    
-    for col, question in zip([col1, col2, col3], example_questions):
-        if col.button(f"💡 {question}", key=f"ex_{question}", use_container_width=True):
-            st.session_state.messages.append({"role": "user", "content": question})
-            st.rerun()
     
     # Contenedor de chat
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
@@ -442,42 +248,32 @@ def main():
     for message in st.session_state.messages:
         if message["role"] == "user":
             st.markdown(
-                f'<div class="message user-message">'
-                f'<div class="message-header">👤 Tú</div>'
-                f'<div class="message-content">{message["content"]}</div>'
-                f'</div>',
+                f'<div class="message user-message">{message["content"]}</div>',
                 unsafe_allow_html=True
             )
         else:
             st.markdown(
-                f'<div class="message assistant-message">'
-                f'<div class="message-header">⚖️ Chat FJ</div>'
-                f'<div class="message-content">{message["content"]}</div>'
-                f'</div>',
+                f'<div class="message assistant-message">{message["content"]}</div>',
                 unsafe_allow_html=True
             )
     
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Input de texto
-    st.markdown('<div class="input-section">', unsafe_allow_html=True)
-    
     col1, col2 = st.columns([5, 1])
     
     with col1:
         user_input = st.text_input(
-            "Escribe tu pregunta aquí...",
+            "Escribe tu pregunta...",
             key="user_input",
             label_visibility="collapsed",
-            placeholder="Ejemplo: ¿Cómo inicio un proceso de conciliación?"
+            placeholder="Ejemplo: ¿Cómo solicito pensión alimentaria?"
         )
     
     with col2:
         if st.button("🗑️ Limpiar", use_container_width=True):
             st.session_state.messages = []
             st.rerun()
-    
-    st.markdown('</div>', unsafe_allow_html=True)
     
     # Procesar pregunta
     if user_input:
@@ -491,7 +287,7 @@ def main():
         ]
         
         # Obtener respuesta
-        with st.spinner("⚖️ Chat FJ está escribiendo..."):
+        with st.spinner("⚖️ Escribiendo..."):
             response = ask_question(user_input, history)
             answer = response.get("answer", "No se obtuvo respuesta")
         
@@ -499,22 +295,6 @@ def main():
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
         st.rerun()
-    
-    # Footer corporativo
-    st.markdown("""
-    <div class="footer">
-        <p><strong>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</strong></p>
-        <p>Poder Judicial de Costa Rica | Sistema de Resolución Alterna de Conflictos</p>
-        <div class="footer-links">
-            <a href="https://www.poder-judicial.go.cr" class="footer-link" target="_blank">🌐 Poder Judicial</a>
-            <a href="http://localhost:8000/docs" class="footer-link" target="_blank">📚 API Docs</a>
-            <a href="#" class="footer-link">📞 Contacto: 2295-3000</a>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
-            © 2025 Poder Judicial de Costa Rica. Todos los derechos reservados.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
