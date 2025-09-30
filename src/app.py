@@ -25,18 +25,19 @@ st.markdown("""
     /* Importar fuente profesional */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    /* Variables de color */
+    /* Variables de color estilo Claude */
     :root {
-        --primary: #1e40af;
-        --primary-light: #3b82f6;
-        --border: #e5e7eb;
-        --text-dark: #1f2937;
-        --text-light: #6b7280;
-        --bg-user: #2563eb;
-        --bg-assistant: #f3f4f6;
-        --shadow: rgba(0, 0, 0, 0.1);
-        --sidebar-bg: #f9fafb;
-        --hover-bg: #f3f4f6;
+        --primary: #676767;
+        --primary-light: #8b8b8b;
+        --border: #e0e0e0;
+        --text-dark: #2c2c2c;
+        --text-light: #666666;
+        --bg-user: #f4f4f4;
+        --bg-assistant: #ffffff;
+        --shadow: rgba(0, 0, 0, 0.04);
+        --sidebar-bg: #f7f7f8;
+        --hover-bg: #ebebeb;
+        --accent: #d97706;
     }
     
     /* Reset */
@@ -49,10 +50,10 @@ st.markdown("""
     footer {visibility: hidden;}
     .stDeployButton {display: none;}
     
-    /* Sidebar minimalista estilo ChatGPT */
+    /* Sidebar minimalista estilo Claude */
     [data-testid="stSidebar"] {
-        background: #0f1419;
-        border-right: none;
+        background: #f7f7f8;
+        border-right: 1px solid #e0e0e0;
         padding: 0;
     }
     
@@ -72,15 +73,15 @@ st.markdown("""
         opacity: 0.7;
     }
     
-    /* Items de conversación minimalistas */
+    /* Items de conversación estilo Claude */
     .conversation-item {
-        padding: 0.625rem 0.75rem;
+        padding: 0.5rem 0.625rem;
         margin: 0.125rem 0;
         border-radius: 0.375rem;
         cursor: pointer;
         transition: all 0.15s ease;
         font-size: 0.8rem;
-        color: #e5e7eb;
+        color: #2c2c2c;
         background: transparent;
         border: none;
         position: relative;
@@ -88,12 +89,12 @@ st.markdown("""
     }
     
     .conversation-item:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: #ebebeb;
     }
     
     .conversation-item.active {
-        background: rgba(59, 130, 246, 0.15);
-        color: #fff;
+        background: #e5e5e5;
+        color: #2c2c2c;
     }
     
     .conversation-title {
@@ -111,38 +112,38 @@ st.markdown("""
         opacity: 0.7;
     }
     
-    /* Header minimalista */
+    /* Header estilo Claude - minimalista */
     .main-header {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        padding: 0.75rem 1.5rem;
+        background: #ffffff;
+        padding: 0.875rem 1.5rem;
         margin: -6rem -4rem 0 -4rem;
-        text-align: center;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
         position: sticky;
         top: 0;
         z-index: 100;
     }
     
     .main-header h1 {
-        color: white;
-        font-size: 1.125rem;
-        font-weight: 600;
+        color: #2c2c2c;
+        font-size: 1rem;
+        font-weight: 500;
         margin: 0;
         letter-spacing: -0.01em;
     }
     
     .main-header p {
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 0.7rem;
+        color: #666666;
+        font-size: 0.75rem;
         margin: 0.125rem 0 0 0;
         font-weight: 400;
     }
     
-    /* Contenedor principal compacto */
+    /* Contenedor principal estilo Claude */
     .main .block-container {
-        max-width: 900px;
+        max-width: 48rem;
         padding: 0 2rem 0.5rem 2rem;
-        background: white;
+        background: #ffffff;
     }
     
     /* Chat container sin scroll */
@@ -156,45 +157,79 @@ st.markdown("""
         background: transparent;
     }
     
-    /* Mensajes minimalistas */
+    /* Mensajes estilo Claude - ultra minimalista */
     .message {
-        margin: 0.5rem 0;
-        padding: 0.625rem 0.875rem;
-        border-radius: 1rem;
-        max-width: 75%;
-        line-height: 1.5;
-        font-size: 0.875rem;
-        animation: fadeInUp 0.2s ease-out;
-        box-shadow: 0 1px 2px var(--shadow);
+        margin: 1.5rem 0;
+        padding: 0;
+        border-radius: 0;
+        max-width: 100%;
+        line-height: 1.6;
+        font-size: 0.9375rem;
+        animation: fadeIn 0.3s ease-out;
+        box-shadow: none;
         position: relative;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 1.5rem;
     }
     
-    @keyframes fadeInUp {
+    @keyframes fadeIn {
         from { 
-            opacity: 0; 
-            transform: translateY(10px);
+            opacity: 0;
         }
         to { 
-            opacity: 1; 
-            transform: translateY(0);
+            opacity: 1;
         }
     }
     
     .user-message {
-        background: var(--bg-user);
+        background: transparent;
+        color: #2c2c2c;
+        margin-left: 0;
+        font-weight: 400;
+        padding-left: 2.5rem;
+        position: relative;
+    }
+    
+    .user-message::before {
+        content: "U";
+        position: absolute;
+        left: 0.5rem;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: #2c2c2c;
         color: white;
-        margin-left: auto;
-        border-bottom-right-radius: 0.375rem;
-        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+        border-radius: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 600;
     }
     
     .assistant-message {
-        background: white;
-        color: var(--text-dark);
-        margin-right: auto;
-        border-bottom-left-radius: 0.375rem;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        background: transparent;
+        color: #2c2c2c;
+        margin-right: 0;
+        padding-left: 2.5rem;
+        position: relative;
+    }
+    
+    .assistant-message::before {
+        content: "FJ";
+        position: absolute;
+        left: 0.5rem;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+        color: white;
+        border-radius: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        font-weight: 700;
     }
     
     /* Input section pegado */
@@ -211,25 +246,26 @@ st.markdown("""
     }
     
     .stTextInput input {
-        border: 1px solid var(--border);
-        border-radius: 1.25rem;
-        padding: 0.625rem 0.875rem;
-        font-size: 0.875rem;
-        transition: all 0.15s ease;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        border: 1px solid #d0d0d0;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.9375rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        background: #ffffff;
     }
     
     .stTextInput input:focus {
-        border-color: var(--primary-light);
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        border-color: #a0a0a0;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
         outline: none;
     }
     
-    /* Botones del sidebar oscuros */
+    /* Botones del sidebar estilo Claude */
     [data-testid="stSidebar"] .stButton button {
-        background: rgba(255, 255, 255, 0.05);
-        color: #e5e7eb;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #ffffff;
+        color: #2c2c2c;
+        border: 1px solid #d0d0d0;
         padding: 0.5rem 0.75rem;
         border-radius: 0.375rem;
         font-weight: 500;
@@ -239,45 +275,47 @@ st.markdown("""
     }
     
     [data-testid="stSidebar"] .stButton button:hover {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(59, 130, 246, 0.5);
+        background: #f5f5f5;
+        border-color: #b0b0b0;
     }
     
     /* Botón nueva conversación destacado */
     [data-testid="stSidebar"] .stButton:first-of-type button {
-        background: rgba(59, 130, 246, 0.15);
-        border-color: rgba(59, 130, 246, 0.3);
-        color: #60a5fa;
+        background: #2c2c2c;
+        border-color: #2c2c2c;
+        color: #ffffff;
         font-weight: 600;
     }
     
     [data-testid="stSidebar"] .stButton:first-of-type button:hover {
-        background: rgba(59, 130, 246, 0.25);
-        border-color: rgba(59, 130, 246, 0.5);
+        background: #1a1a1a;
+        border-color: #1a1a1a;
     }
     
-    /* Botones de eliminar más pequeños */
+    /* Botones de eliminar más discretos */
     [data-testid="stSidebar"] .stButton button[kind="secondary"] {
         padding: 0.375rem 0.5rem;
         font-size: 0.75rem;
-        opacity: 0.6;
+        opacity: 0.5;
+        border: none;
+        background: transparent;
     }
     
     [data-testid="stSidebar"] .stButton button[kind="secondary"]:hover {
         opacity: 1;
-        background: rgba(239, 68, 68, 0.15);
-        border-color: rgba(239, 68, 68, 0.5);
-        color: #ef4444;
+        background: #ffebee;
+        color: #d32f2f;
     }
     
-    /* Footer pegado */
+    /* Footer estilo Claude */
     .footer-disclaimer {
         background: transparent;
-        padding: 0.25rem 0;
+        padding: 0.5rem 0;
         text-align: center;
-        font-size: 0.7rem;
-        color: #9ca3af;
-        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        color: #999999;
+        margin-top: 0.5rem;
+        border-top: 1px solid #f0f0f0;
     }
     
     /* Loading */
@@ -307,29 +345,29 @@ st.markdown("""
         background: #9ca3af;
     }
     
-    /* Welcome screen minimalista */
+    /* Welcome screen estilo Claude */
     .welcome-screen {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 25vh;
+        min-height: 30vh;
         text-align: center;
-        padding: 0.5rem 0.5rem;
+        padding: 2rem 1rem;
     }
     
     .welcome-screen h2 {
-        color: var(--text-dark);
-        font-size: 1.375rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
+        color: #2c2c2c;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
         margin-top: 0;
     }
     
     .welcome-screen p {
-        color: var(--text-light);
-        font-size: 0.85rem;
-        margin-bottom: 0.75rem;
+        color: #666666;
+        font-size: 0.9375rem;
+        margin-bottom: 2rem;
         margin-top: 0;
     }
     
@@ -343,33 +381,32 @@ st.markdown("""
     }
     
     .example-card {
-        background: white;
-        border: 1px solid var(--border);
+        background: #ffffff;
+        border: 1px solid #d0d0d0;
         border-radius: 0.5rem;
-        padding: 0.625rem;
+        padding: 0.875rem 1rem;
         cursor: pointer;
-        transition: all 0.15s ease;
+        transition: all 0.2s ease;
         text-align: left;
     }
     
     .example-card:hover {
-        border-color: var(--primary-light);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px);
+        border-color: #a0a0a0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
     
     .example-card h4 {
-        color: var(--text-dark);
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin: 0 0 0.25rem 0;
+        color: #2c2c2c;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        margin: 0 0 0.375rem 0;
     }
     
     .example-card p {
-        color: var(--text-light);
-        font-size: 0.75rem;
+        color: #666666;
+        font-size: 0.8125rem;
         margin: 0;
-        line-height: 1.3;
+        line-height: 1.4;
     }
     
     /* Responsive mejorado */
@@ -602,7 +639,7 @@ def main():
     # Header
     st.markdown("""
     <div class="main-header">
-        <h1>⚖️ Chat FJ</h1>
+        <h1>Chat FJ</h1>
         <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
     </div>
     """, unsafe_allow_html=True)
@@ -618,13 +655,13 @@ def main():
     if len(current_conv["messages"]) == 0:
         st.markdown("""
         <div class="welcome-screen">
-            <h2>👋 ¡Hola! Soy Chat FJ</h2>
-            <p>¿En qué puedo ayudarte hoy?</p>
+            <h2>¿En qué puedo ayudarte hoy?</h2>
+            <p>Estoy aquí para orientarte sobre temas legales y judiciales en Costa Rica</p>
         </div>
         """, unsafe_allow_html=True)
         
-        # Ejemplos de preguntas más compactos
-        st.markdown('<p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #6b7280; margin: 0.25rem 0 0.375rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
+        # Ejemplos de preguntas estilo Claude
+        st.markdown('<p style="text-align: center; font-size: 0.875rem; font-weight: 400; color: #666666; margin: 0 0 1rem 0;">Ejemplos de consultas</p>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         examples = [
