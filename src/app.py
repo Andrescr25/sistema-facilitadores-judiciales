@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# CSS Minimalista y Profesional
+# CSS Moderno con burbujas mejoradas
 st.markdown("""
 <style>
     /* Importar fuente profesional */
@@ -30,8 +30,9 @@ st.markdown("""
         --border: #e5e7eb;
         --text-dark: #1f2937;
         --text-light: #6b7280;
-        --bg-user: #1e40af;
+        --bg-user: #2563eb;
         --bg-assistant: #f3f4f6;
+        --shadow: rgba(0, 0, 0, 0.1);
     }
     
     /* Reset */
@@ -50,6 +51,7 @@ st.markdown("""
         padding: 2rem;
         margin: -6rem -4rem 2rem -4rem;
         text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .main-header h1 {
@@ -57,6 +59,7 @@ st.markdown("""
         font-size: 1.75rem;
         font-weight: 700;
         margin: 0;
+        letter-spacing: -0.02em;
     }
     
     .main-header p {
@@ -70,11 +73,12 @@ st.markdown("""
     .main .block-container {
         max-width: 900px;
         padding: 2rem 2rem 1rem 2rem;
+        background: #fafafa;
     }
     
-    /* Chat container - SIN fondo blanco, más fluido */
+    /* Chat container */
     .chat-container {
-        padding: 1rem 0;
+        padding: 1rem 0 2rem 0;
         margin: 0;
         min-height: 400px;
         max-height: 500px;
@@ -83,49 +87,61 @@ st.markdown("""
         background: transparent;
     }
     
-    /* Mensajes */
+    /* Mensajes mejorados estilo WhatsApp/ChatGPT */
     .message {
         margin: 0.75rem 0;
-        padding: 0.875rem 1rem;
-        border-radius: 1rem;
-        max-width: 75%;
+        padding: 0.875rem 1.125rem;
+        border-radius: 1.125rem;
+        max-width: 70%;
         line-height: 1.6;
         font-size: 0.95rem;
-        animation: fadeIn 0.3s ease-out;
+        animation: fadeInUp 0.3s ease-out;
+        box-shadow: 0 1px 3px var(--shadow);
+        position: relative;
     }
     
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(5px); }
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp {
+        from { 
+            opacity: 0; 
+            transform: translateY(10px);
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0);
+        }
     }
     
     .user-message {
         background: var(--bg-user);
         color: white;
         margin-left: auto;
-        border-bottom-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.375rem;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
     }
     
     .assistant-message {
-        background: var(--bg-assistant);
+        background: white;
         color: var(--text-dark);
         margin-right: auto;
-        border-bottom-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.375rem;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     
     /* Input section */
     .input-section {
         margin: 2rem 0 1rem 0;
-        padding-top: 1rem;
+        padding-top: 1.5rem;
         border-top: 1px solid var(--border);
     }
     
     .stTextInput input {
-        border: 2px solid var(--border);
-        border-radius: 0.75rem;
-        padding: 0.875rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        padding: 0.875rem 1.125rem;
         font-size: 0.95rem;
         transition: all 0.2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
     .stTextInput input:focus {
@@ -136,35 +152,44 @@ st.markdown("""
     
     /* Botones */
     .stButton button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 0.625rem 1.25rem;
-        border-radius: 0.5rem;
+        background: white;
+        color: var(--text-dark);
+        border: 1px solid var(--border);
+        padding: 0.625rem 1rem;
+        border-radius: 0.75rem;
         font-weight: 500;
         font-size: 0.875rem;
         transition: all 0.2s;
         width: 100%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
     .stButton button:hover {
-        background: var(--primary-light);
+        background: #f9fafb;
+        border-color: var(--primary-light);
         transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
     
-    /* Footer con disclaimer */
+    /* Footer estilo ChatGPT */
     .footer-disclaimer {
-        background: #fef3c7;
-        border-top: 2px solid #fcd34d;
-        padding: 1rem;
+        background: transparent;
+        border-top: 1px solid #e5e7eb;
+        padding: 1rem 2rem;
         margin: 2rem -4rem -2rem -4rem;
         text-align: center;
-        font-size: 0.875rem;
-        color: #92400e;
+        font-size: 0.75rem;
+        color: #6b7280;
     }
     
-    .footer-disclaimer strong {
-        color: #78350f;
+    .footer-disclaimer a {
+        color: #6b7280;
+        text-decoration: underline;
+        transition: color 0.2s;
+    }
+    
+    .footer-disclaimer a:hover {
+        color: #374151;
     }
     
     /* Loading */
@@ -175,6 +200,23 @@ st.markdown("""
     /* Scroll suave */
     .chat-container {
         scroll-behavior: smooth;
+    }
+    
+    .chat-container::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .chat-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .chat-container::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 3px;
+    }
+    
+    .chat-container::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
     }
     
     /* Responsive */
@@ -189,7 +231,7 @@ st.markdown("""
         }
         
         .message {
-            max-width: 85%;
+            max-width: 80%;
         }
         
         .main .block-container {
@@ -198,6 +240,7 @@ st.markdown("""
         
         .footer-disclaimer {
             margin: 2rem -1rem -1.5rem -1rem;
+            padding: 1rem;
         }
     }
 </style>
@@ -269,7 +312,7 @@ def main():
             "Escribe tu pregunta...",
             key="user_input",
             label_visibility="collapsed",
-            placeholder="Ejemplo: ¿Cómo solicito pensión alimentaria?"
+            placeholder="Envía un mensaje a Chat FJ..."
         )
     
     with col2:
@@ -298,11 +341,10 @@ def main():
         
         st.rerun()
     
-    # Footer con disclaimer
+    # Footer estilo ChatGPT
     st.markdown("""
     <div class="footer-disclaimer">
-        <strong>⚠️ Importante:</strong> Este chat es para orientación general. La información puede contener errores. 
-        Verifica siempre con fuentes oficiales o profesionales del derecho.
+        Chat FJ puede cometer errores. Verifica la información importante con fuentes oficiales.
     </div>
     """, unsafe_allow_html=True)
 
