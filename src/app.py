@@ -145,12 +145,12 @@ st.markdown("""
         background: white;
     }
     
-    /* Chat container compacto */
+    /* Chat container ultra compacto */
     .chat-container {
-        padding: 1rem 0 1.5rem 0;
+        padding: 0.5rem 0 0.5rem 0;
         margin: 0;
-        min-height: calc(100vh - 250px);
-        max-height: calc(100vh - 250px);
+        min-height: calc(100vh - 200px);
+        max-height: calc(100vh - 200px);
         overflow-y: auto;
         border: none;
         background: transparent;
@@ -197,12 +197,12 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     
-    /* Input section compacto */
+    /* Input section pegado al chat */
     .input-section {
         position: sticky;
         bottom: 0;
         background: white;
-        padding: 1rem 0 0.75rem 0;
+        padding: 0.5rem 0 0.5rem 0;
         margin: 0 -2rem;
         padding-left: 2rem;
         padding-right: 2rem;
@@ -270,14 +270,14 @@ st.markdown("""
         color: #ef4444;
     }
     
-    /* Footer compacto */
+    /* Footer pegado */
     .footer-disclaimer {
         background: transparent;
-        padding: 0.5rem 0;
+        padding: 0.25rem 0;
         text-align: center;
         font-size: 0.7rem;
         color: #9ca3af;
-        margin-top: 0.5rem;
+        margin-top: 0.25rem;
     }
     
     /* Loading */
@@ -307,15 +307,15 @@ st.markdown("""
         background: #9ca3af;
     }
     
-    /* Welcome screen compacto */
+    /* Welcome screen ultra compacto */
     .welcome-screen {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 40vh;
+        min-height: 30vh;
         text-align: center;
-        padding: 1.5rem 1rem;
+        padding: 1rem 0.5rem;
     }
     
     .welcome-screen h2 {
@@ -323,12 +323,14 @@ st.markdown("""
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 0.25rem;
+        margin-top: 0;
     }
     
     .welcome-screen p {
         color: var(--text-light);
         font-size: 0.875rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
+        margin-top: 0;
     }
     
     .welcome-examples {
@@ -397,7 +399,12 @@ st.markdown("""
         
         .input-section {
             margin: 0 -1rem;
-            padding: 0.75rem 1rem 0.5rem 1rem;
+            padding: 0.5rem 1rem 0.5rem 1rem;
+        }
+        
+        .chat-container {
+            min-height: calc(100vh - 180px);
+            max-height: calc(100vh - 180px);
         }
         
         .stTextInput input {
@@ -529,13 +536,21 @@ def main():
     
     # Sidebar con historial de conversaciones
     with st.sidebar:
-        # Botón para nueva conversación (más prominente)
-        if st.button("➕  Nueva conversación", key="new_chat_btn", use_container_width=True):
+        # Verificar si la conversación actual está vacía
+        current_conv_temp = next((c for c in st.session_state.conversations if c["id"] == st.session_state.current_conversation_id), None)
+        is_current_empty = current_conv_temp and len(current_conv_temp["messages"]) == 0
+        
+        # Botón para nueva conversación (deshabilitado si actual está vacía)
+        if st.button("➕  Nueva conversación", key="new_chat_btn", use_container_width=True, disabled=is_current_empty):
             new_conv = create_new_conversation()
             st.session_state.conversations.insert(0, new_conv)
             st.session_state.current_conversation_id = new_conv["id"]
             st.session_state.last_input = ""
             st.rerun()
+        
+        # Mostrar mensaje si está deshabilitado
+        if is_current_empty:
+            st.caption("⚠️ Escribe algo primero")
         
         st.markdown('<div style="height: 1rem;"></div>', unsafe_allow_html=True)
         
@@ -607,7 +622,7 @@ def main():
         """, unsafe_allow_html=True)
         
         # Ejemplos de preguntas más compactos
-        st.markdown('<p style="text-align: center; font-size: 0.875rem; font-weight: 600; color: #6b7280; margin: 1rem 0 0.75rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
+        st.markdown('<p style="text-align: center; font-size: 0.875rem; font-weight: 600; color: #6b7280; margin: 0.5rem 0 0.5rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         examples = [
@@ -619,8 +634,10 @@ def main():
         for col, (title, example) in zip([col1, col2, col3], examples):
             with col:
                 if st.button(title, key=f"example_{title}", use_container_width=True):
-                    # Simular que el usuario escribió este ejemplo
-                    st.session_state.last_input = example
+                    # Agregar mensaje del usuario directamente
+                    current_conv["messages"].append({"role": "user", "content": example})
+                    current_conv["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    update_conversation_title(current_conv)
                     st.rerun()
     
     # Contenedor de chat
@@ -653,24 +670,29 @@ def main():
         placeholder="Envía un mensaje a Chat FJ... (Presiona Enter para enviar)"
     )
     
-    # Procesar pregunta SOLO si es diferente al último input procesado
+    # Procesar pregunta del input o de los ejemplos
+    question_to_process = None
+    
+    # Verificar si hay una pregunta del input
     if user_input and user_input.strip() and user_input != st.session_state.last_input:
-        # Guardar este input como procesado
+        question_to_process = user_input
         st.session_state.last_input = user_input
-        
-        # Agregar mensaje del usuario
-        current_conv["messages"].append({"role": "user", "content": user_input})
-        
-        # Actualizar timestamp de la conversación
-        current_conv["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        # Actualizar título si es el primer mensaje
-        if len(current_conv["messages"]) == 1:
+    # Verificar si hay un mensaje pendiente del usuario (de ejemplos)
+    elif len(current_conv["messages"]) > 0 and current_conv["messages"][-1]["role"] == "user":
+        # Verificar que no tenga respuesta aún
+        if len(current_conv["messages"]) == 1 or current_conv["messages"][-2]["role"] != "assistant":
+            question_to_process = current_conv["messages"][-1]["content"]
+    
+    if question_to_process:
+        # Si la pregunta no está en el historial, agregarla
+        if not (len(current_conv["messages"]) > 0 and current_conv["messages"][-1]["content"] == question_to_process):
+            current_conv["messages"].append({"role": "user", "content": question_to_process})
+            current_conv["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             update_conversation_title(current_conv)
         
         # Mostrar mensaje del usuario inmediatamente
         st.markdown(
-            f'<div class="message user-message">{user_input}</div>',
+            f'<div class="message user-message">{question_to_process}</div>',
             unsafe_allow_html=True
         )
         
@@ -682,7 +704,7 @@ def main():
         
         # Obtener respuesta del API
         with st.spinner("⚖️ Pensando..."):
-            response = ask_question(user_input, history)
+            response = ask_question(question_to_process, history)
             answer = response.get("answer", "No se obtuvo respuesta")
         
         # Crear placeholder para la animación de escritura
