@@ -246,13 +246,23 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Header minimalista
-st.markdown("""
-<div class="main-header">
-    <h1>⚖️ Chat FJ</h1>
-    <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
-</div>
-""", unsafe_allow_html=True)
+# Header minimalista con botón
+col_header, col_button = st.columns([6, 1])
+
+with col_header:
+    st.markdown("""
+    <div class="main-header">
+        <h1>⚖️ Chat FJ</h1>
+        <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_button:
+    st.markdown('<div style="margin-top: 25px;"></div>', unsafe_allow_html=True)
+    if st.button("🔄 Nueva conversación", use_container_width=True, key="clear_chat"):
+        st.session_state.messages = []
+        st.session_state.last_input = ""
+        st.rerun()
 
 # Configuración API
 API_URL = "http://localhost:8000"
@@ -309,23 +319,14 @@ def main():
     # Input de texto
     st.markdown('<div class="input-section"></div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([5, 1])
-    
-    with col1:
-        # Usar key única con el contador de mensajes para forzar reset
-        input_key = f"user_input_{len(st.session_state.messages)}"
-        user_input = st.text_input(
-            "Escribe tu pregunta...",
-            key=input_key,
-            label_visibility="collapsed",
-            placeholder="Envía un mensaje a Chat FJ..."
-        )
-    
-    with col2:
-        if st.button("🗑️ Limpiar", use_container_width=True):
-            st.session_state.messages = []
-            st.session_state.last_input = ""
-            st.rerun()
+    # Input de texto sin botón confuso al lado
+    input_key = f"user_input_{len(st.session_state.messages)}"
+    user_input = st.text_input(
+        "Escribe tu pregunta...",
+        key=input_key,
+        label_visibility="collapsed",
+        placeholder="Envía un mensaje a Chat FJ... (Presiona Enter para enviar)"
+    )
     
     # Procesar pregunta SOLO si es diferente al último input procesado
     if user_input and user_input.strip() and user_input != st.session_state.last_input:
