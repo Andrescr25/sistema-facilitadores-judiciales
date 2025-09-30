@@ -23,20 +23,18 @@ http://192.168.0.16:8501
 
 ### 🌍 Internet (desde cualquier lugar)
 ```bash
-# 1. Configura ngrok (una sola vez):
-.\setup_ngrok.ps1
-cd C:\Users\javar
-.\ngrok.exe config add-authtoken TU_TOKEN
+# Inicia servidor + túnel público:
+.\bin\start_public.ps1
 
-# 2. Inicia el servidor + túnel:
-.\start_public.ps1
+# O solo túnel (si servidor ya está corriendo):
+.\bin\start_ngrok.ps1
 
-# 3. Copia la URL pública (ej: https://abc123.ngrok-free.app)
+# Copia la URL pública (ej: https://abc123.ngrok-free.app)
 ```
 
 Ver guías completas:
-- **Red local:** `ACCESO_MOVIL.md`
-- **Internet:** `ACCESO_INTERNET.md`
+- **Red local:** `docs/ACCESO_MOVIL.md`
+- **Internet:** `docs/ACCESO_INTERNET.md`
 
 ---
 
