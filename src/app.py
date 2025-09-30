@@ -284,9 +284,9 @@ def main():
         }
         st.session_state.messages.append(welcome_msg)
     
-    # Inicializar flag de procesamiento
-    if "processing" not in st.session_state:
-        st.session_state.processing = False
+    # Almacenar el último input procesado
+    if "last_input" not in st.session_state:
+        st.session_state.last_input = ""
     
     # Contenedor de chat
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
@@ -312,9 +312,11 @@ def main():
     col1, col2 = st.columns([5, 1])
     
     with col1:
+        # Usar key única con el contador de mensajes para forzar reset
+        input_key = f"user_input_{len(st.session_state.messages)}"
         user_input = st.text_input(
             "Escribe tu pregunta...",
-            key="user_input",
+            key=input_key,
             label_visibility="collapsed",
             placeholder="Envía un mensaje a Chat FJ..."
         )
@@ -322,13 +324,13 @@ def main():
     with col2:
         if st.button("🗑️ Limpiar", use_container_width=True):
             st.session_state.messages = []
-            st.session_state.processing = False
+            st.session_state.last_input = ""
             st.rerun()
     
-    # Procesar pregunta SOLO si hay input y NO se está procesando
-    if user_input and not st.session_state.processing:
-        # Marcar como procesando para evitar loops
-        st.session_state.processing = True
+    # Procesar pregunta SOLO si es diferente al último input procesado
+    if user_input and user_input.strip() and user_input != st.session_state.last_input:
+        # Guardar este input como procesado
+        st.session_state.last_input = user_input
         
         # Agregar mensaje del usuario
         st.session_state.messages.append({"role": "user", "content": user_input})
@@ -347,10 +349,10 @@ def main():
         # Agregar respuesta
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
-        # Resetear flag de procesamiento
-        st.session_state.processing = False
+        # Resetear el último input para permitir nuevos mensajes
+        st.session_state.last_input = ""
         
-        # Recargar para limpiar el input
+        # Recargar para actualizar la interfaz
         st.rerun()
     
     # Footer estilo ChatGPT
