@@ -49,62 +49,51 @@ st.markdown("""
     footer {visibility: hidden;}
     .stDeployButton {display: none;}
     
-    /* Sidebar personalizado estilo ChatGPT */
+    /* Sidebar minimalista estilo ChatGPT */
     [data-testid="stSidebar"] {
-        background: var(--sidebar-bg);
-        border-right: 1px solid var(--border);
+        background: #0f1419;
+        border-right: none;
         padding: 0;
     }
     
     [data-testid="stSidebar"] > div:first-child {
-        padding: 1rem 0.75rem;
-    }
-    
-    /* Botón nueva conversación en sidebar */
-    .new-chat-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1rem;
-        margin: 0.5rem 0 1rem 0;
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 0.5rem;
-        cursor: pointer;
-        font-weight: 500;
-        font-size: 0.875rem;
-        transition: all 0.2s;
-        width: 100%;
-        text-align: left;
-    }
-    
-    .new-chat-btn:hover {
-        background: #f9fafb;
-        border-color: var(--primary-light);
-    }
-    
-    /* Items de conversación */
-    .conversation-item {
         padding: 0.75rem;
-        margin: 0.25rem 0;
-        border-radius: 0.5rem;
+    }
+    
+    /* Título del sidebar */
+    .sidebar-title {
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.7;
+    }
+    
+    /* Items de conversación minimalistas */
+    .conversation-item {
+        padding: 0.625rem 0.75rem;
+        margin: 0.125rem 0;
+        border-radius: 0.375rem;
         cursor: pointer;
-        transition: all 0.2s;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.875rem;
-        color: var(--text-dark);
+        transition: all 0.15s ease;
+        font-size: 0.8rem;
+        color: #e5e7eb;
         background: transparent;
+        border: none;
+        position: relative;
+        overflow: hidden;
     }
     
     .conversation-item:hover {
-        background: var(--hover-bg);
+        background: rgba(255, 255, 255, 0.08);
     }
     
     .conversation-item.active {
-        background: white;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background: rgba(59, 130, 246, 0.15);
+        color: #fff;
     }
     
     .conversation-title {
@@ -112,22 +101,23 @@ st.markdown("""
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-weight: 500;
+        font-weight: 400;
     }
     
     .conversation-date {
-        font-size: 0.75rem;
-        color: var(--text-light);
-        margin-top: 0.25rem;
+        font-size: 0.7rem;
+        color: #9ca3af;
+        margin-top: 0.125rem;
+        opacity: 0.7;
     }
     
-    /* Header minimalista */
+    /* Header compacto */
     .main-header {
         background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        padding: 1.25rem 2rem;
+        padding: 1rem 1.5rem;
         margin: -6rem -4rem 0 -4rem;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         position: sticky;
         top: 0;
         z-index: 100;
@@ -135,16 +125,16 @@ st.markdown("""
     
     .main-header h1 {
         color: white;
-        font-size: 1.5rem;
-        font-weight: 700;
+        font-size: 1.25rem;
+        font-weight: 600;
         margin: 0;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.01em;
     }
     
     .main-header p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 0.85rem;
-        margin: 0.25rem 0 0 0;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.75rem;
+        margin: 0.125rem 0 0 0;
         font-weight: 400;
     }
     
@@ -155,27 +145,27 @@ st.markdown("""
         background: white;
     }
     
-    /* Chat container */
+    /* Chat container compacto */
     .chat-container {
-        padding: 1.5rem 0 2rem 0;
+        padding: 1rem 0 1.5rem 0;
         margin: 0;
-        min-height: calc(100vh - 300px);
-        max-height: calc(100vh - 300px);
+        min-height: calc(100vh - 250px);
+        max-height: calc(100vh - 250px);
         overflow-y: auto;
         border: none;
         background: transparent;
     }
     
-    /* Mensajes mejorados estilo ChatGPT */
+    /* Mensajes compactos */
     .message {
-        margin: 1rem 0;
-        padding: 1rem 1.25rem;
-        border-radius: 1.125rem;
+        margin: 0.75rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
         max-width: 75%;
-        line-height: 1.6;
-        font-size: 0.95rem;
-        animation: fadeInUp 0.3s ease-out;
-        box-shadow: 0 1px 3px var(--shadow);
+        line-height: 1.5;
+        font-size: 0.9rem;
+        animation: fadeInUp 0.2s ease-out;
+        box-shadow: 0 1px 2px var(--shadow);
         position: relative;
     }
     
@@ -207,12 +197,12 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     
-    /* Input section fijo al fondo */
+    /* Input section compacto */
     .input-section {
         position: sticky;
         bottom: 0;
         background: white;
-        padding: 1.5rem 0 1rem 0;
+        padding: 1rem 0 0.75rem 0;
         margin: 0 -2rem;
         padding-left: 2rem;
         padding-right: 2rem;
@@ -221,47 +211,73 @@ st.markdown("""
     }
     
     .stTextInput input {
-        border: 2px solid var(--border);
-        border-radius: 1.5rem;
-        padding: 0.875rem 1.125rem;
-        font-size: 0.95rem;
-        transition: all 0.2s;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 1.25rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
     .stTextInput input:focus {
         border-color: var(--primary-light);
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         outline: none;
     }
     
-    /* Botones del sidebar */
-    .sidebar .stButton button {
-        background: white;
-        color: var(--text-dark);
-        border: 1px solid var(--border);
-        padding: 0.625rem 1rem;
-        border-radius: 0.5rem;
+    /* Botones del sidebar oscuros */
+    [data-testid="stSidebar"] .stButton button {
+        background: rgba(255, 255, 255, 0.05);
+        color: #e5e7eb;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
         font-weight: 500;
-        font-size: 0.875rem;
-        transition: all 0.2s;
+        font-size: 0.8rem;
+        transition: all 0.15s ease;
         width: 100%;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     
-    .sidebar .stButton button:hover {
-        background: #f9fafb;
-        border-color: var(--primary-light);
+    [data-testid="stSidebar"] .stButton button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(59, 130, 246, 0.5);
     }
     
-    /* Footer estilo ChatGPT */
+    /* Botón nueva conversación destacado */
+    [data-testid="stSidebar"] .stButton:first-of-type button {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: #60a5fa;
+        font-weight: 600;
+    }
+    
+    [data-testid="stSidebar"] .stButton:first-of-type button:hover {
+        background: rgba(59, 130, 246, 0.25);
+        border-color: rgba(59, 130, 246, 0.5);
+    }
+    
+    /* Botones de eliminar más pequeños */
+    [data-testid="stSidebar"] .stButton button[kind="secondary"] {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.75rem;
+        opacity: 0.6;
+    }
+    
+    [data-testid="stSidebar"] .stButton button[kind="secondary"]:hover {
+        opacity: 1;
+        background: rgba(239, 68, 68, 0.15);
+        border-color: rgba(239, 68, 68, 0.5);
+        color: #ef4444;
+    }
+    
+    /* Footer compacto */
     .footer-disclaimer {
         background: transparent;
-        padding: 0.75rem 0;
+        padding: 0.5rem 0;
         text-align: center;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         color: #9ca3af;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
     }
     
     /* Loading */
@@ -291,35 +307,35 @@ st.markdown("""
         background: #9ca3af;
     }
     
-    /* Welcome screen */
+    /* Welcome screen compacto */
     .welcome-screen {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 50vh;
+        min-height: 40vh;
         text-align: center;
-        padding: 2rem;
+        padding: 1.5rem 1rem;
     }
     
     .welcome-screen h2 {
         color: var(--text-dark);
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
     }
     
     .welcome-screen p {
         color: var(--text-light);
-        font-size: 1rem;
-        margin-bottom: 2rem;
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
     }
     
     .welcome-examples {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-top: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1rem;
         width: 100%;
         max-width: 600px;
     }
@@ -327,57 +343,121 @@ st.markdown("""
     .example-card {
         background: white;
         border: 1px solid var(--border);
-        border-radius: 0.75rem;
-        padding: 1rem;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.15s ease;
         text-align: left;
     }
     
     .example-card:hover {
         border-color: var(--primary-light);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
     }
     
     .example-card h4 {
         color: var(--text-dark);
-        font-size: 0.875rem;
+        font-size: 0.8rem;
         font-weight: 600;
-        margin: 0 0 0.5rem 0;
+        margin: 0 0 0.25rem 0;
     }
     
     .example-card p {
         color: var(--text-light);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin: 0;
-        line-height: 1.4;
+        line-height: 1.3;
     }
     
-    /* Responsive */
+    /* Responsive mejorado */
     @media (max-width: 768px) {
         .main-header {
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             margin: -4rem -1rem 0 -1rem;
         }
         
         .main-header h1 {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
+        }
+        
+        .main-header p {
+            font-size: 0.7rem;
         }
         
         .message {
             max-width: 85%;
+            font-size: 0.85rem;
+            padding: 0.625rem 0.875rem;
         }
         
         .main .block-container {
-            padding: 0 1rem 1rem 1rem;
+            padding: 0 1rem 0.75rem 1rem;
         }
         
         .input-section {
             margin: 0 -1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding: 0.75rem 1rem 0.5rem 1rem;
         }
+        
+        .stTextInput input {
+            font-size: 0.8rem;
+            padding: 0.625rem 0.875rem;
+        }
+        
+        .welcome-screen {
+            min-height: 30vh;
+            padding: 1rem 0.5rem;
+        }
+        
+        .welcome-screen h2 {
+            font-size: 1.25rem;
+        }
+        
+        .welcome-examples {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        
+        [data-testid="stSidebar"] {
+            padding: 0;
+        }
+    }
+    
+    /* Scroll más delgado en sidebar */
+    [data-testid="stSidebar"]::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    [data-testid="stSidebar"]::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    [data-testid="stSidebar"]::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+    }
+    
+    [data-testid="stSidebar"]::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Captions en sidebar oscuros */
+    [data-testid="stSidebar"] .element-container div[data-testid="stCaptionContainer"] {
+        color: rgba(255, 255, 255, 0.4) !important;
+        font-size: 0.65rem !important;
+        margin-top: 0.125rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Eliminar espacios innecesarios en sidebar */
+    [data-testid="stSidebar"] .element-container {
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Caption específico */
+    [data-testid="stSidebar"] p {
+        margin-bottom: 0.25rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -449,17 +529,15 @@ def main():
     
     # Sidebar con historial de conversaciones
     with st.sidebar:
-        st.markdown("### 💬 Conversaciones")
-        
-        # Botón para nueva conversación
-        if st.button("➕ Nueva conversación", key="new_chat_btn", use_container_width=True):
+        # Botón para nueva conversación (más prominente)
+        if st.button("➕  Nueva conversación", key="new_chat_btn", use_container_width=True):
             new_conv = create_new_conversation()
             st.session_state.conversations.insert(0, new_conv)
             st.session_state.current_conversation_id = new_conv["id"]
             st.session_state.last_input = ""
             st.rerun()
         
-        st.markdown("---")
+        st.markdown('<div style="height: 1rem;"></div>', unsafe_allow_html=True)
         
         # Mostrar lista de conversaciones
         for idx, conv in enumerate(st.session_state.conversations):
@@ -468,8 +546,13 @@ def main():
             col1, col2 = st.columns([5, 1])
             
             with col1:
+                # Título más corto y limpio
+                title = conv['title'][:30]
+                if len(conv['title']) > 30:
+                    title += "..."
+                
                 if st.button(
-                    f"💬 {conv['title'][:25]}{'...' if len(conv['title']) > 25 else ''}",
+                    f"💬  {title}",
                     key=f"conv_{conv['id']}",
                     use_container_width=True,
                     type="primary" if is_active else "secondary"
@@ -479,22 +562,23 @@ def main():
                     st.rerun()
             
             with col2:
-                if st.button("🗑️", key=f"delete_{conv['id']}", use_container_width=True):
+                if st.button("🗑️", key=f"delete_{conv['id']}", use_container_width=True, type="secondary"):
                     if len(st.session_state.conversations) > 1:
                         st.session_state.conversations.pop(idx)
                         if conv["id"] == st.session_state.current_conversation_id:
                             st.session_state.current_conversation_id = st.session_state.conversations[0]["id"]
                         st.rerun()
             
-            # Mostrar timestamp
+            # Timestamp más compacto
             if conv["timestamp"]:
-                st.caption(f"📅 {format_timestamp(conv['timestamp'])}")
+                st.caption(f"🕐 {format_timestamp(conv['timestamp'])}")
         
-        st.markdown("---")
+        # Footer minimalista
+        st.markdown('<div style="height: 2rem;"></div>', unsafe_allow_html=True)
         st.markdown("""
-        <div style="font-size: 0.75rem; color: #9ca3af; text-align: center;">
-            <p>Chat FJ v2.0</p>
-            <p>Poder Judicial CR 🇨🇷</p>
+        <div style="font-size: 0.65rem; color: rgba(255,255,255,0.4); text-align: center; padding: 0.5rem;">
+            <p style="margin: 0; padding: 0;">Chat FJ v2.0</p>
+            <p style="margin: 0.25rem 0 0 0; padding: 0;">Poder Judicial CR 🇨🇷</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -513,7 +597,7 @@ def main():
         st.error("No se encontró la conversación")
         return
     
-    # Si no hay mensajes, mostrar welcome screen
+    # Si no hay mensajes, mostrar welcome screen compacto
     if len(current_conv["messages"]) == 0:
         st.markdown("""
         <div class="welcome-screen">
@@ -522,14 +606,14 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # Ejemplos de preguntas
-        st.markdown("### 💡 Ejemplos de consultas:")
+        # Ejemplos de preguntas más compactos
+        st.markdown('<p style="text-align: center; font-size: 0.875rem; font-weight: 600; color: #6b7280; margin: 1rem 0 0.75rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         examples = [
-            ("💰 Pensión alimentaria", "Mi ex no paga pensión, ¿qué hago?"),
+            ("💰 Pensión", "Mi ex no paga pensión, ¿qué hago?"),
             ("⚖️ Conciliación", "¿Cuánto dura una conciliación?"),
-            ("👔 Problemas laborales", "Mi jefe no me paga horas extra")
+            ("👔 Laboral", "Mi jefe no me paga horas extra")
         ]
         
         for col, (title, example) in zip([col1, col2, col3], examples):
