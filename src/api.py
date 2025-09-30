@@ -873,13 +873,78 @@ class JudicialBot:
             history = []
         
         try:
-            # 1. Verificar cache (más rápido)
+            # 1. Detectar saludos y consultas simples (ANTES de buscar documentos)
+            question_lower = question.lower().strip()
+            
+            # Saludos simples
+            if question_lower in ["hola", "buenos días", "buenas tardes", "buenas noches", "hey", "holi", "ola"]:
+                response = {
+                    "answer": """¡Hola! 👋 Soy Chat FJ, del Servicio Nacional de Facilitadoras y Facilitadores Judiciales de Costa Rica.
+
+Estoy aquí para ayudarte con:
+• Pensiones alimentarias
+• Conciliaciones
+• Problemas laborales
+• Consultas legales
+• Trámites judiciales
+• Y mucho más
+
+¿En qué te puedo ayudar hoy? Contame tu situación.""",
+                    "sources": [],
+                    "processing_time": time.time() - start_time,
+                    "cached": False
+                }
+                self.cache.set(question, response)
+                return response
+            
+            # Despedidas
+            if any(word in question_lower for word in ["adiós", "adios", "chao", "hasta luego", "gracias", "bye"]):
+                response = {
+                    "answer": """¡Con mucho gusto! 😊 
+
+Si necesitás más ayuda en el futuro, no dudes en volver. Estamos aquí para ayudarte.
+
+¡Que tengas un excelente día! 🌟""",
+                    "sources": [],
+                    "processing_time": time.time() - start_time,
+                    "cached": False
+                }
+                self.cache.set(question, response)
+                return response
+            
+            # Preguntas sobre el bot
+            if any(phrase in question_lower for phrase in ["quién sos", "quien sos", "qué sos", "que sos", "qué haces", "que haces", "para qué sirves", "para que sirves"]):
+                response = {
+                    "answer": """Soy Chat FJ, un asistente virtual del Servicio Nacional de Facilitadoras y Facilitadores Judiciales de Costa Rica. 🇨🇷
+
+Mi función es:
+✅ Orientarte en temas legales y judiciales
+✅ Ayudarte a resolver problemas de forma práctica
+✅ Darte información sobre:
+   • Pensiones alimentarias
+   • Conciliaciones
+   • Derechos laborales
+   • Trámites judiciales
+   • Defensa Pública
+   • Y mucho más
+
+💡 **Importante:** Te doy orientación, pero siempre verifica la información con fuentes oficiales.
+
+¿En qué te puedo ayudar específicamente?""",
+                    "sources": [],
+                    "processing_time": time.time() - start_time,
+                    "cached": False
+                }
+                self.cache.set(question, response)
+                return response
+            
+            # 2. Verificar cache (más rápido)
             cached_response = self.cache.get(question)
             if cached_response:
                 cached_response['processing_time'] = time.time() - start_time
                 return cached_response
             
-            # 2. Verificar respuestas precomputadas (opcional)
+            # 3. Verificar respuestas precomputadas (opcional)
             if self.use_precomputed:
                 precomputed_answer = self.precomputed.find_match(question)
                 if precomputed_answer:
@@ -893,7 +958,7 @@ class JudicialBot:
                     self.cache.set(question, response)
                     return response
             
-            # 3. Procesamiento con RAG (solo si es necesario)
+            # 4. Procesamiento con RAG (solo para consultas reales)
             # Intensificar retrieval para respuestas más ricas
             relevant_docs = await self.search_documents_async(question, k=4)
             
