@@ -69,27 +69,26 @@ st.markdown("""
     /* Contenedor principal */
     .main .block-container {
         max-width: 900px;
-        padding: 2rem 2rem 3rem 2rem;
+        padding: 2rem 2rem 1rem 2rem;
     }
     
-    /* Chat container */
+    /* Chat container - SIN fondo blanco, más fluido */
     .chat-container {
-        background: white;
-        border-radius: 0.75rem;
-        border: 1px solid var(--border);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        min-height: 500px;
-        max-height: 600px;
+        padding: 1rem 0;
+        margin: 0;
+        min-height: 400px;
+        max-height: 500px;
         overflow-y: auto;
+        border: none;
+        background: transparent;
     }
     
     /* Mensajes */
     .message {
-        margin: 1rem 0;
+        margin: 0.75rem 0;
         padding: 0.875rem 1rem;
         border-radius: 1rem;
-        max-width: 80%;
+        max-width: 75%;
         line-height: 1.6;
         font-size: 0.95rem;
         animation: fadeIn 0.3s ease-out;
@@ -115,6 +114,12 @@ st.markdown("""
     }
     
     /* Input section */
+    .input-section {
+        margin: 2rem 0 1rem 0;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+    }
+    
     .stTextInput input {
         border: 2px solid var(--border);
         border-radius: 0.75rem;
@@ -147,19 +152,18 @@ st.markdown("""
         transform: translateY(-1px);
     }
     
-    /* Disclaimer */
-    .disclaimer {
+    /* Footer con disclaimer */
+    .footer-disclaimer {
         background: #fef3c7;
-        border: 1px solid #fcd34d;
-        border-radius: 0.5rem;
-        padding: 0.875rem 1rem;
-        margin: 1.5rem 0;
+        border-top: 2px solid #fcd34d;
+        padding: 1rem;
+        margin: 2rem -4rem -2rem -4rem;
+        text-align: center;
         font-size: 0.875rem;
         color: #92400e;
-        text-align: center;
     }
     
-    .disclaimer strong {
+    .footer-disclaimer strong {
         color: #78350f;
     }
     
@@ -189,7 +193,11 @@ st.markdown("""
         }
         
         .main .block-container {
-            padding: 1.5rem 1rem;
+            padding: 1.5rem 1rem 1rem 1rem;
+        }
+        
+        .footer-disclaimer {
+            margin: 2rem -1rem -1.5rem -1rem;
         }
     }
 </style>
@@ -200,14 +208,6 @@ st.markdown("""
 <div class="main-header">
     <h1>⚖️ Chat FJ</h1>
     <p>Servicio Nacional de Facilitadoras y Facilitadores Judiciales</p>
-</div>
-""", unsafe_allow_html=True)
-
-# Disclaimer como ChatGPT
-st.markdown("""
-<div class="disclaimer">
-    <strong>⚠️ Importante:</strong> Este chat es para orientación general. La información puede contener errores. 
-    Verifica siempre con fuentes oficiales o profesionales del derecho.
 </div>
 """, unsafe_allow_html=True)
 
@@ -260,6 +260,8 @@ def main():
     st.markdown('</div>', unsafe_allow_html=True)
     
     # Input de texto
+    st.markdown('<div class="input-section"></div>', unsafe_allow_html=True)
+    
     col1, col2 = st.columns([5, 1])
     
     with col1:
@@ -295,6 +297,14 @@ def main():
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
         st.rerun()
+    
+    # Footer con disclaimer
+    st.markdown("""
+    <div class="footer-disclaimer">
+        <strong>⚠️ Importante:</strong> Este chat es para orientación general. La información puede contener errores. 
+        Verifica siempre con fuentes oficiales o profesionales del derecho.
+    </div>
+    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
