@@ -7,6 +7,39 @@ Sistema inteligente de asistencia legal con IA híbrida (MockLLM + Groq API) par
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 🌐 Acceso
+
+### 💻 Local
+```bash
+python inicio.py
+# Abre: http://localhost:8501
+```
+
+### 📱 Red Local (mismo WiFi)
+```bash
+# Desde tu móvil en la misma red:
+http://192.168.0.16:8501
+```
+
+### 🌍 Internet (desde cualquier lugar)
+```bash
+# 1. Configura ngrok (una sola vez):
+.\setup_ngrok.ps1
+cd C:\Users\javar
+.\ngrok.exe config add-authtoken TU_TOKEN
+
+# 2. Inicia el servidor + túnel:
+.\start_public.ps1
+
+# 3. Copia la URL pública (ej: https://abc123.ngrok-free.app)
+```
+
+Ver guías completas:
+- **Red local:** `ACCESO_MOVIL.md`
+- **Internet:** `ACCESO_INTERNET.md`
+
+---
+
 ## 🚀 Inicio Rápido
 
 ```bash
