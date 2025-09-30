@@ -425,7 +425,7 @@ Si NO tienes información específica, dilo claramente y sugiere dónde buscarla
                         }
                     ],
                     temperature=0.7,
-                    max_tokens=500,
+                    max_tokens=1500,  # Aumentado para respuestas más completas
                     top_p=0.9,
                     stream=False
                 )
