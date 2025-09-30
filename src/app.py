@@ -111,10 +111,10 @@ st.markdown("""
         opacity: 0.7;
     }
     
-    /* Header compacto */
+    /* Header minimalista */
     .main-header {
         background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-        padding: 1rem 1.5rem;
+        padding: 0.75rem 1.5rem;
         margin: -6rem -4rem 0 -4rem;
         text-align: center;
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -125,7 +125,7 @@ st.markdown("""
     
     .main-header h1 {
         color: white;
-        font-size: 1.25rem;
+        font-size: 1.125rem;
         font-weight: 600;
         margin: 0;
         letter-spacing: -0.01em;
@@ -133,37 +133,37 @@ st.markdown("""
     
     .main-header p {
         color: rgba(255, 255, 255, 0.85);
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         margin: 0.125rem 0 0 0;
         font-weight: 400;
     }
     
-    /* Contenedor principal */
+    /* Contenedor principal compacto */
     .main .block-container {
         max-width: 900px;
-        padding: 0 2rem 1rem 2rem;
+        padding: 0 2rem 0.5rem 2rem;
         background: white;
     }
     
-    /* Chat container ultra compacto */
+    /* Chat container sin scroll */
     .chat-container {
-        padding: 0.5rem 0 0.5rem 0;
+        padding: 0.25rem 0 0.25rem 0;
         margin: 0;
-        min-height: calc(100vh - 200px);
-        max-height: calc(100vh - 200px);
+        min-height: calc(100vh - 180px);
+        max-height: calc(100vh - 180px);
         overflow-y: auto;
         border: none;
         background: transparent;
     }
     
-    /* Mensajes compactos */
+    /* Mensajes minimalistas */
     .message {
-        margin: 0.75rem 0;
-        padding: 0.75rem 1rem;
+        margin: 0.5rem 0;
+        padding: 0.625rem 0.875rem;
         border-radius: 1rem;
         max-width: 75%;
         line-height: 1.5;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         animation: fadeInUp 0.2s ease-out;
         box-shadow: 0 1px 2px var(--shadow);
         position: relative;
@@ -197,12 +197,12 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     
-    /* Input section pegado al chat */
+    /* Input section pegado */
     .input-section {
         position: sticky;
         bottom: 0;
         background: white;
-        padding: 0.5rem 0 0.5rem 0;
+        padding: 0.375rem 0 0.375rem 0;
         margin: 0 -2rem;
         padding-left: 2rem;
         padding-right: 2rem;
@@ -213,7 +213,7 @@ st.markdown("""
     .stTextInput input {
         border: 1px solid var(--border);
         border-radius: 1.25rem;
-        padding: 0.75rem 1rem;
+        padding: 0.625rem 0.875rem;
         font-size: 0.875rem;
         transition: all 0.15s ease;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -307,20 +307,20 @@ st.markdown("""
         background: #9ca3af;
     }
     
-    /* Welcome screen ultra compacto */
+    /* Welcome screen minimalista */
     .welcome-screen {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 30vh;
+        min-height: 25vh;
         text-align: center;
-        padding: 1rem 0.5rem;
+        padding: 0.5rem 0.5rem;
     }
     
     .welcome-screen h2 {
         color: var(--text-dark);
-        font-size: 1.5rem;
+        font-size: 1.375rem;
         font-weight: 600;
         margin-bottom: 0.25rem;
         margin-top: 0;
@@ -328,16 +328,16 @@ st.markdown("""
     
     .welcome-screen p {
         color: var(--text-light);
-        font-size: 0.875rem;
-        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        margin-bottom: 0.75rem;
         margin-top: 0;
     }
     
     .welcome-examples {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 0.75rem;
-        margin-top: 1rem;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
         width: 100%;
         max-width: 600px;
     }
@@ -346,7 +346,7 @@ st.markdown("""
         background: white;
         border: 1px solid var(--border);
         border-radius: 0.5rem;
-        padding: 0.75rem;
+        padding: 0.625rem;
         cursor: pointer;
         transition: all 0.15s ease;
         text-align: left;
@@ -389,8 +389,9 @@ st.markdown("""
         
         .message {
             max-width: 85%;
-            font-size: 0.85rem;
-            padding: 0.625rem 0.875rem;
+            font-size: 0.8rem;
+            padding: 0.5rem 0.75rem;
+            margin: 0.375rem 0;
         }
         
         .main .block-container {
@@ -403,8 +404,9 @@ st.markdown("""
         }
         
         .chat-container {
-            min-height: calc(100vh - 180px);
-            max-height: calc(100vh - 180px);
+            min-height: calc(100vh - 160px);
+            max-height: calc(100vh - 160px);
+            padding: 0.25rem 0;
         }
         
         .stTextInput input {
@@ -413,12 +415,12 @@ st.markdown("""
         }
         
         .welcome-screen {
-            min-height: 30vh;
-            padding: 1rem 0.5rem;
+            min-height: 20vh;
+            padding: 0.5rem 0.25rem;
         }
         
         .welcome-screen h2 {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
         }
         
         .welcome-examples {
@@ -622,7 +624,7 @@ def main():
         """, unsafe_allow_html=True)
         
         # Ejemplos de preguntas más compactos
-        st.markdown('<p style="text-align: center; font-size: 0.875rem; font-weight: 600; color: #6b7280; margin: 0.5rem 0 0.5rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
+        st.markdown('<p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #6b7280; margin: 0.25rem 0 0.375rem 0;">💡 Consultas frecuentes</p>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         
         examples = [
