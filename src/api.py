@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-API optimizada para el bot de Facilitadores Judiciales.
-Sistema rápido y eficiente con cache inteligente y respuestas precomputadas.
+Chat FJ - Servicio Nacional de Facilitadoras y Facilitadores Judiciales
+API optimizada con sistema híbrido (MockLLM + Groq API)
 """
 
 import os

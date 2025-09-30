@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Sistema de Facilitadores Judiciales - Script de inicio completo
-Inicia API + Interfaz Web
+Chat FJ - Servicio Nacional de Facilitadoras y Facilitadores Judiciales
+Script de inicio completo (API + Interfaz Web)
 """
 import os
 import sys
@@ -17,7 +17,7 @@ os.chdir(PROJECT_ROOT)
 
 def main():
     """Inicia todo el sistema."""
-    print("🤖 Bot de Facilitadores Judiciales")
+    print("⚖️  Chat FJ - Facilitadoras y Facilitadores Judiciales")
     print("=" * 50)
     print("🚀 Iniciando sistema completo...")
     
