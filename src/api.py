@@ -191,8 +191,44 @@ class PrecomputedResponses:
 
 Estoy aquí para ayudarte con lo que necesites. ¡No dudes en preguntar! 😊"""
             },
+            "duracion_conciliacion": {
+                "keywords": ["cuánto dura", "duración", "tiempo", "demora", "tarda", "cuanto tiempo"],
+                "answer": """Una conciliación generalmente dura:
+
+⏱️ **Duración típica:**
+• **Primera sesión:** 1-2 horas
+• **Proceso completo:** 1-3 sesiones (dependiendo del caso)
+• **Plazo total:** Usualmente se resuelve en 1-2 meses
+
+📅 **Factores que influyen:**
+• Complejidad del caso
+• Disponibilidad de las partes
+• Documentación necesaria
+• Si hay acuerdo o no
+
+✅ **Ventajas vs juicio:**
+• Conciliación: 1-2 meses
+• Juicio tradicional: 6 meses a 2+ años
+
+🏛️ **Tipos de conciliación:**
+• **Pre-procesal:** Antes de juicio (más rápida)
+• **Procesal:** Durante el juicio
+• **Judicial:** En el juzgado
+
+💡 **Consejo:** La rapidez depende mucho de la actitud colaborativa de ambas partes.
+
+----
+
+**¿Te puedo ayudar con algo más?**
+• ¿Querés saber cómo prepararte para una conciliación?
+• ¿Necesitás información sobre qué pasa si no hay acuerdo?
+• ¿Te interesa conocer qué casos se pueden conciliar?
+• ¿Tenés dudas sobre los requisitos para iniciar?
+
+Estoy aquí para ayudarte. 😊"""
+            },
             "facilitador": {
-                "keywords": ["facilitador", "conciliación", "requisitos", "cómo ser", "trabajo", "certificación"],
+                "keywords": ["facilitador judicial", "ser facilitador", "requisitos facilitador", "trabajo facilitador", "certificación facilitador", "curso facilitador"],
                 "answer": """Para ser Facilitador Judicial en Costa Rica, necesitas:
 
 📋 **Requisitos:**
@@ -227,6 +263,51 @@ Estoy aquí para ayudarte con lo que necesites. ¡No dudes en preguntar! 😊"""
 • ¿Tenés dudas sobre los requisitos o documentos?
 
 Estoy aquí para ayudarte. ¡Seguí preguntando! 📚"""
+            },
+            "proceso_conciliacion": {
+                "keywords": ["cómo funciona conciliación", "proceso de conciliación", "qué es conciliación", "conciliación judicial", "conciliar"],
+                "answer": """La conciliación es un proceso voluntario para resolver conflictos. Te explico cómo funciona:
+
+🤝 **¿Qué es?**
+Es un proceso donde un facilitador neutral ayuda a las partes a llegar a un acuerdo sin ir a juicio.
+
+📋 **Pasos del proceso:**
+1. **Solicitud:** Una o ambas partes piden la conciliación
+2. **Citación:** Se notifica a la otra parte
+3. **Sesión:** El facilitador modera el diálogo
+4. **Acuerdo:** Si hay acuerdo, se firma y tiene validez legal
+5. **Sin acuerdo:** Se puede acudir a juicio
+
+✅ **Ventajas:**
+• Más rápido que un juicio
+• Menos costoso
+• Las partes mantienen el control
+• Acuerdos más flexibles
+• Menos conflictivo
+
+🏛️ **Casos que se pueden conciliar:**
+• Pensión alimentaria
+• Regulación de visitas
+• Conflictos laborales (algunos)
+• Asuntos de familia
+• Conflictos vecinales
+
+⚠️ **No se concilia:**
+• Delitos graves
+• Violencia doméstica
+• Derechos irrenunciables
+
+💡 **Consejo:** La conciliación funciona mejor cuando ambas partes quieren llegar a un acuerdo.
+
+----
+
+**¿En qué más te puedo ayudar?**
+• ¿Necesitás saber dónde solicitar una conciliación?
+• ¿Querés conocer qué documentos llevar?
+• ¿Te interesa saber cuánto cuesta?
+• ¿Tenés dudas sobre si tu caso se puede conciliar?
+
+Preguntame lo que necesites. 😊"""
             }
         }
     
