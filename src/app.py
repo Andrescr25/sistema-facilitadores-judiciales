@@ -335,19 +335,49 @@ def main():
         # Agregar mensaje del usuario
         st.session_state.messages.append({"role": "user", "content": user_input})
         
+        # Mostrar mensaje del usuario inmediatamente
+        st.markdown(
+            f'<div class="message user-message">{user_input}</div>',
+            unsafe_allow_html=True
+        )
+        
         # Preparar historial para la API
         history = [
             {"role": msg["role"], "content": msg["content"]}
             for msg in st.session_state.messages[1:-1]  # Excluir bienvenida y última pregunta
         ]
         
-        # Obtener respuesta
-        with st.spinner("⚖️ Escribiendo..."):
+        # Obtener respuesta del API
+        with st.spinner("⚖️ Pensando..."):
             response = ask_question(user_input, history)
             answer = response.get("answer", "No se obtuvo respuesta")
         
-        # Agregar respuesta
+        # Crear placeholder para la animación de escritura
+        message_placeholder = st.empty()
+        full_response = ""
+        
+        # Simular escritura palabra por palabra (estilo ChatGPT)
+        words = answer.split()
+        for i, word in enumerate(words):
+            full_response += word + " "
+            # Mostrar el texto con cursor parpadeante
+            message_placeholder.markdown(
+                f'<div class="message assistant-message">{full_response}▌</div>',
+                unsafe_allow_html=True
+            )
+            time.sleep(0.03)  # Delay entre palabras (30ms)
+        
+        # Mostrar respuesta final sin cursor
+        message_placeholder.markdown(
+            f'<div class="message assistant-message">{answer}</div>',
+            unsafe_allow_html=True
+        )
+        
+        # Agregar respuesta al historial
         st.session_state.messages.append({"role": "assistant", "content": answer})
+        
+        # Pequeña pausa antes de permitir siguiente mensaje
+        time.sleep(0.5)
         
         # Resetear el último input para permitir nuevos mensajes
         st.session_state.last_input = ""
