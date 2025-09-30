@@ -21,27 +21,30 @@ def main():
     print("=" * 50)
     print("🚀 Iniciando sistema completo...")
     
+    api_process = None
+    streamlit_process = None
+    
     try:
-        # Iniciar API
+        # Iniciar API (sin capturar output para evitar buffer lleno)
         print("📡 Iniciando API en puerto 8000...")
         api_process = subprocess.Popen(
             [sys.executable, "-m", "uvicorn", "src.api:app", 
              "--host", "0.0.0.0", "--port", "8000"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
         )
         
         # Esperar API
         print("⏳ Esperando API...")
         time.sleep(10)
         
-        # Iniciar Streamlit
+        # Iniciar Streamlit (sin capturar output)
         print("🌐 Iniciando interfaz web en puerto 8501...")
         streamlit_process = subprocess.Popen(
             [sys.executable, "-m", "streamlit", "run", "src/app.py", 
              "--server.port", "8501", "--server.headless", "true"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
         )
         
         # Esperar Streamlit
@@ -64,16 +67,39 @@ def main():
         print("🌍 Abriendo navegador...")
         webbrowser.open("http://localhost:8501")
         
-        print("🛑 Presiona Ctrl+C para detener el sistema")
+        print("🛑 Presiona Ctrl+C para detener el sistema\n")
         
-        # Mantener procesos vivos
-        api_process.wait()
-        streamlit_process.wait()
+        # Mantener procesos vivos (loop infinito hasta Ctrl+C)
+        while True:
+            # Verificar si los procesos siguen corriendo
+            if api_process.poll() is not None:
+                print("❌ API se detuvo inesperadamente")
+                break
+            if streamlit_process.poll() is not None:
+                print("❌ Interfaz web se detuvo inesperadamente")
+                break
+            time.sleep(1)
         
     except KeyboardInterrupt:
         print("\n\n🛑 Deteniendo sistema...")
-        api_process.terminate()
-        streamlit_process.terminate()
+    except Exception as e:
+        print(f"\n❌ Error: {e}")
+    finally:
+        # Limpiar procesos
+        if api_process:
+            api_process.terminate()
+            try:
+                api_process.wait(timeout=5)
+            except:
+                api_process.kill()
+        
+        if streamlit_process:
+            streamlit_process.terminate()
+            try:
+                streamlit_process.wait(timeout=5)
+            except:
+                streamlit_process.kill()
+        
         print("✅ Sistema detenido")
 
 if __name__ == "__main__":
