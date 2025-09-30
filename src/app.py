@@ -284,6 +284,10 @@ def main():
         }
         st.session_state.messages.append(welcome_msg)
     
+    # Inicializar flag de procesamiento
+    if "processing" not in st.session_state:
+        st.session_state.processing = False
+    
     # Contenedor de chat
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
     
@@ -318,10 +322,14 @@ def main():
     with col2:
         if st.button("🗑️ Limpiar", use_container_width=True):
             st.session_state.messages = []
+            st.session_state.processing = False
             st.rerun()
     
-    # Procesar pregunta
-    if user_input:
+    # Procesar pregunta SOLO si hay input y NO se está procesando
+    if user_input and not st.session_state.processing:
+        # Marcar como procesando para evitar loops
+        st.session_state.processing = True
+        
         # Agregar mensaje del usuario
         st.session_state.messages.append({"role": "user", "content": user_input})
         
@@ -339,6 +347,10 @@ def main():
         # Agregar respuesta
         st.session_state.messages.append({"role": "assistant", "content": answer})
         
+        # Resetear flag de procesamiento
+        st.session_state.processing = False
+        
+        # Recargar para limpiar el input
         st.rerun()
     
     # Footer estilo ChatGPT
